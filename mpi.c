@@ -42,7 +42,6 @@ printf("%d, %d, %d\n", commsize, rank, nrows);
         //b
         a[i*(n+1)+n] = rand() % 100 + 1;
     }
-
     //Прямой
     int row = 0;
     for (int i=0; i<n-1; i++)
@@ -78,7 +77,23 @@ printf("%d, %d, %d\n", commsize, rank, nrows);
         {
             x[i] = a[row*(n+1) + n];
             row++;
-        }            else MPI_Bcast(&x[i], 1, MPI_DOUBLE, i%commsize, MPI_COMM_WORLD);
+        }
+    }
+
+    //Обратный
+    row = nrows-1;
+    for (int i=n-1; i>0; i--)
+    {
+        if (row >= 0)
+        {
+            if (i == rows[row])
+            {
+                x[i] /= a[row * (n+1) +i];
+                MPI_Bcast(&x[i], 1, MPI_DOUBLE, rank, MPI_COMM_WORLD);
+                row--;
+            }
+            }
+            else MPI_Bcast(&x[i], 1, MPI_DOUBLE, i%commsize, MPI_COMM_WORLD);
         }
         else MPI_Bcast(&x[i], 1, MPI_DOUBLE, i%commsize, MPI_COMM_WORLD);
 
@@ -99,17 +114,3 @@ printf("%d, %d, %d\n", commsize, rank, nrows);
     return 0;
 }
 
-    }
-
-    //Обратный
-    row = nrows-1;
-    for (int i=n-1; i>0; i--)
-    {
-        if (row >= 0)
-        {
-            if (i == rows[row])
-            {
-                x[i] /= a[row * (n+1) +i];
-                MPI_Bcast(&x[i], 1, MPI_DOUBLE, rank, MPI_COMM_WORLD);
-                row--;
-            }
