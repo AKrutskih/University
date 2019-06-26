@@ -18,23 +18,16 @@ NAME = MPI.Get_processor_name()
 n = 100
 t = MPI.Wtime()
 nrows = streams(n, SIZE, RANK)
-#a = [None]*nrows*(n+1)
-#x = [None]*n
-#tmp = [None]*(n+1)
 tmp = np.ones(n+1)
 a = np.ones(nrows*(n+1))
 x = np.ones(n)
-#x = np.arange (0, n, 1)
-#x = range (0, n)
 rows = np.ones(nrows+1)
-#rows = [None]*nrows
+
 for i in range(0, nrows):
     rows[i] = RANK + SIZE * i
     for j in range(0, n-1):
         a[i*(n-1)+j] = np.random.randint(1, 99)
     a[i*(n+1)+n] = np.random.randint(1, 99)
-
-#if RANK == 0: print(rows)
 
 row = 0
 for i in range(0, n-1):
