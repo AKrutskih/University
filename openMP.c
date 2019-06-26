@@ -33,7 +33,7 @@ int main (int argc, char *argv[])
 
     //Прямой
 
-#pragma omp parallel num_threads(2)
+#pragma omp parallel //num_threads(2)
 {
 # pragma omp for
 for (int k=0; k<n-1; k++)
