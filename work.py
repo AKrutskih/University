@@ -206,13 +206,14 @@ def recoveryPath(pathMatrix, xStart, yStart, xEnd, yEnd):
 lenMap = [100]
 numbersOfRobots = [5, 10, 20, 50]
 
+#file = open('TIME/time.txt', 'w')
 for DIM in lenMap:
     for iterOfMap in range (10):
         myMap = np.loadtxt('MAPS/Map' + str(DIM) + 'Iter' + str(iterOfMap) + '.txt')
         for robot in numbersOfRobots:
             for iterOfRobots in range(10):
 
-                startTime = time.time()
+                #startTime = time.time()
                 st, en = generateStartAndEndPoints(myMap, robot)
                 st = st.astype(int)
                 en = en.astype(int)
@@ -220,6 +221,8 @@ for DIM in lenMap:
                 #FlyPath = FlyPath.astype(int)
                 Targets = chouseTarget(FlyPath)
                 Targets = Targets.astype(int)
+
+                startTime = time.time()
 
                 for i in range (robot):
                     #print(st[Targets[i][0]][0], st[Targets[i][0]][1], en[Targets[i][1]][0], en[Targets[i][1]][1])
@@ -231,6 +234,10 @@ for DIM in lenMap:
                     #print(samePath)
                     #print('\n')
 
-                file = open('TIME/Map' + str(DIM) + 'iter' + str(iterOfMap) + 'Rob' + str(robot) + 'iter' + str(iterOfRobots) + '.txt', 'w')
-                file.write(str(time.time() - startTime) + '\n')
-                file.close()
+                #file = open('TIME/Map' + str(DIM) + 'iter' + str(iterOfMap) + 'Rob' + str(robot) + 'iter' + str(iterOfRobots) + '.txt', 'w')
+                #file.write(str(time.time() - startTime) + '\n')
+                #file.close()
+                #file.write(str(time.time() - startTime) + '\n')
+                print(str(time.time() - startTime))
+                #print('\n')
+#file.close()
